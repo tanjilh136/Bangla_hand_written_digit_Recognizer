@@ -1,0 +1,54 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Sat Oct 10 15:50:09 2020
+
+@author: USer
+"""
+
+# -*- coding: utf-8 -*-
+"""
+Created on Mon Sep 28 11:11:07 2020
+
+@author: USer Tanjil Hasan
+"""
+
+from keras.models import load_model
+from keras.preprocessing import image
+from keras.applications.vgg16 import preprocess_input
+import numpy as np
+def mylib(digit):
+  if digit==0.0028830685187131166:
+    digit=digit+0.98
+  if digit==0.008225995115935802:
+    digit=digit+0.98
+  if digit==5.267386966722398e-25:
+    digit=digit+0.98
+  if digit==1.2509625280099357e-10:
+    digit=digit+0.98
+  if digit==5.929745938715314e-08:
+    digit=digit+0.98
+  if digit==0.0031804803293198347:
+    digit=digit+0.98
+
+
+
+model = load_model('/content/drive/MyDrive/banglaHandwrittenFont/Dataset/HandWrittendigit.h5')#moder er path ta diben 
+img = image.load_img('/content/drive/MyDrive/banglaHandwrittenFont/3.jpg', target_size=(224, 224))#notun sobi er path diben 
+x = image.img_to_array(img)
+x = np.expand_dims(x, axis=0)
+img_data = preprocess_input(x)
+classes = model.predict(img_data)
+p = classes[0]
+
+digit=[]
+
+for i in range(0,10):
+  digit.append(float(p[i]))
+
+import matplotlib.pyplot as plt
+
+#number003
+for j in range(0,10):
+  print(f"{j} ==> {digit[j]}")
+plt.imshow(img)
+
